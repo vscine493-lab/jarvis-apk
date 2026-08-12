@@ -38,17 +38,29 @@ jobs:
 
       - name: Android SDK
         uses: android-actions/setup-android@v3
+        with:
+          cmdline-tools-version: 12266719
+          packages: tools platform-tools
+          accept-android-sdk-licenses: true
+
+      - name: Configurar SDK moderno
+        run: |
+          echo "ANDROID_HOME=$ANDROID_SDK_ROOT" >> "$GITHUB_ENV"
+          echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT" >> "$GITHUB_ENV"
+          echo "$ANDROID_SDK_ROOT/cmdline-tools/16.0/bin" >> "$GITHUB_PATH"
+          echo "$ANDROID_SDK_ROOT/platform-tools" >> "$GITHUB_PATH"
+
+          which sdkmanager
+          sdkmanager --version
 
       - name: Instalar SDK Android
         run: |
           yes | sdkmanager --licenses || true
+
           sdkmanager \
             "platform-tools" \
             "platforms;android-35" \
             "build-tools;35.0.0"
-
-          echo "=== SDK INSTALADO ==="
-          sdkmanager --list_installed
 
       - name: Buildozer
         run: |
@@ -56,12 +68,9 @@ jobs:
           pip install buildozer
           pip install "Cython<3"
 
-      - name: Configurar Buildozer
-        run: |
-          buildozer android clean || true
-
       - name: Compilar APK
         run: |
+          buildozer android clean || true
           buildozer -v android debug
 
       - name: Verificar APK
