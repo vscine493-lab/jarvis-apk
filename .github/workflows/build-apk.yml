@@ -57,7 +57,6 @@ jobs:
 
           echo "=== AIDL ==="
           test -f "$ANDROID_HOME/build-tools/35.0.0/aidl"
-          chmod +x "$ANDROID_HOME/build-tools/35.0.0/aidl"
           "$ANDROID_HOME/build-tools/35.0.0/aidl" --version
 
       - name: Buildozer
