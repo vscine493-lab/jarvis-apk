@@ -47,18 +47,6 @@ jobs:
             "platforms;android-35" \
             "build-tools;35.0.0"
 
-      - name: Verificar AIDL
-        run: |
-          echo "=== SDK ==="
-          echo "$ANDROID_HOME"
-
-          echo "=== BUILD TOOLS ==="
-          ls -lah "$ANDROID_HOME/build-tools/35.0.0"
-
-          echo "=== AIDL ==="
-          test -f "$ANDROID_HOME/build-tools/35.0.0/aidl"
-          "$ANDROID_HOME/build-tools/35.0.0/aidl" --version
-
       - name: Buildozer
         run: |
           python -m pip install --upgrade pip
