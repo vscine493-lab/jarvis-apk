@@ -498,3 +498,6 @@ warn_on_root = 1
 #   Environment variable overrides have priority over profile overrides.
 
 android.accept_sdk_license = True
+
+android.api = 35
+android.minapi = 23
